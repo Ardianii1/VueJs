@@ -1,12 +1,12 @@
 <template>
   <div >
-    <h1>This is an about page</h1>
+    <h1>Contact page</h1>
   </div>
 </template>
 
 <style>
 @media (min-width: 1024px) {
-  .about {
+  .contact {
     min-height: 100vh;
     display: flex;
     align-items: center;
