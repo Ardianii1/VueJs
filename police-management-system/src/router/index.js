@@ -41,6 +41,7 @@ import HomeView from '../views/HomeView.vue'
       component: () =>
         import(/* webpackChunkName: "login" */ "../views/LoginForm.vue"),
     },
+    
   ];
 // })
 

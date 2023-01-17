@@ -81,12 +81,12 @@
       >
         Register
       </button>
-      <a
+      <RouterLink
         class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-        href="#"
+        to="/login"
       >
         Already have an account?
-      </a>
+      </RouterLink>
     </div>
   </form>
 </template>
@@ -121,12 +121,12 @@ export default {
         return;
       }
       if (this.name !== "" || this.email !== "" || this.password !== "" || this.confirmPassword !== "" || !this.emailError || !this.passwordMismatchError) {
-        this.loading = true;
+          this.loading = true;
           await this.$store.dispatch('registerUser', {
-          name: this.name,
-          email: this.email,
-          password: this.password,
-        });
+              name: this.name,
+              email: this.email,
+              password: this.password,
+          });
         this.loading = true;
       }
       this.loading = false;
