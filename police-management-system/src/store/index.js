@@ -75,8 +75,9 @@ import loginUser from "../firebase/user/loginUser";
 
 const store = createStore({
   state: {
-    posts: [],
     user: null,
+    posts: [],
+    cases: [],
   },
   getters: {
     numberOfPosts(state) {
@@ -98,22 +99,30 @@ const store = createStore({
     setUser(state, user) {
       state.user = user;
     },
+    setCases(state, cases) {
+      state.cases = cases;
+    },
   },
   actions: {
-    async fetchPosts({ commit }) {
-      const snapshots = await getDocs(collection(db, "posts"));
-      const newPosts = [];
-      snapshots.forEach((snapshot) => {
-        newPosts.push(snapshot.data());
-      });
-      commit("setPosts", newPosts);
-    },
+    // async fetchPosts({ commit }) {
+    //   const snapshots = await getDocs(collection(db, "posts"));
+    //   const newPosts = [];
+    //   snapshots.forEach((snapshot) => {
+    //     newPosts.push(snapshot.data());
+    //   });
+    //   commit("setPosts", newPosts);
+    // },
     async loginUser({ commit }, payload) {
-      const { user } = await loginUser(payload);
+      const user = await loginUser(payload);
       commit("setUser", user);
     },
     async registerUser(_, payload) {
       await signupUser(payload);
+    },
+    async fetchCases({ commit }) {
+      const res = await fetch("http://localhost:3000/cases");
+      const cases = await res.json();
+      commit("setCases", cases);
     },
   },
   modules: {},

@@ -7,6 +7,7 @@ export default {
   methods: {
             handleLogout() {
                 signOut(getAuth());
+                this.$router.push('/login');
             }
         },
         computed: {
@@ -35,13 +36,16 @@ export default {
   <nav class="bg-gray-800">
     <div class="container mx-auto px-6 py-4 flex items-center justify-between">
       <div class="w-1/5">
-        <router-link to="/" class="text-white font-medium text-2xl flex items-center"><img src="src/assets/logo.svg" alt="Logo" class="h-8 w-8 rounded-full" />My App</router-link>
+        <router-link to="/" class="text-white font-medium text-2xl flex items-center">
+          <!-- <img src="src/assets/logo.svg" alt="Logo" class="h-8 w-8 rounded-full" /> -->
+          My App</router-link>
       </div>
       <div class="w-4/5 flex justify-end">
         <router-link to="/" class="text-white font-medium px-4 py-2 hover:bg-gray-700 rounded-lg">Home</router-link>
+        <router-link to="/admin" class="text-white font-medium px-4 py-2 hover:bg-gray-700 rounded-lg">Admin</router-link>
         <router-link to="/about" class="text-white font-medium px-4 py-2 hover:bg-gray-700 rounded-lg">About</router-link>
-        <router-link to="/register" class="text-white font-medium px-4 py-2 hover:bg-gray-700 rounded-lg">Register</router-link>
-        <router-link to="/login" class="text-white font-medium px-4 py-2 hover:bg-gray-700 rounded-lg">Login</router-link>
+        <router-link to="/register" class="text-white font-medium px-4 py-2 hover:bg-gray-700 rounded-lg" v-if="!user">Register</router-link>
+        <router-link to="/login" class="text-white font-medium px-4 py-2 hover:bg-gray-700 rounded-lg" v-if="!user">Login</router-link>
         <button class="text-white font-medium px-4 py-2 hover:bg-red-500 rounded-lg" v-if="user" @click="handleLogout">Logout</button>
       </div>
     </div>

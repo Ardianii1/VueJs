@@ -11,7 +11,7 @@ import { getAuth, onAuthStateChanged } from '@firebase/auth';
     HomeView,
   },
   mounted() {
-    this.$store.dispatch('fetchPosts');
+    // this.$store.dispatch('fetchPosts');
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       this.$store.commit('setUser', user);
