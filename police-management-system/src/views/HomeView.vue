@@ -5,6 +5,6 @@ import TheWelcome from '../components/TheWelcome.vue'
 <template>
   <!-- <main> -->
     <!-- <TheWelcome /> -->
-  <h1>Home Page agnesa</h1>
+  <h1>Home Page agnesa , Rumejsa</h1>
   <!-- </main> -->
 </template>
