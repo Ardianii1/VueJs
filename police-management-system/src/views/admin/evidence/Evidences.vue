@@ -1,13 +1,177 @@
 <template>
-    <div>
-        sdfds
+    <div class="flex justify-center overflow-y-scroll">
+        <div class="relative mt-5 w-[90%]  overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr class="flex justify-between p-3">
+                        <th scope="col" class="py-3">
+                            <div class="flex items-center">
+                                <a href="#" @click="sortByy(identifier)" class="flex"><svg
+                                        xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" aria-hidden="true"
+                                        fill="currentColor" viewBox="0 0 320 512">
+                                        <path
+                                            d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+                                    </svg>Identifier</a>
+                            </div>
+                        </th>
+                        <th scope="col" class="py-3">
+                            <div class="flex items-center">
+                                <a href="#" @click="sortByy(caseNumber)" class="flex"><svg
+                                        xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" aria-hidden="true"
+                                        fill="currentColor" viewBox="0 0 320 512">
+                                        <path
+                                            d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+                                    </svg>CasecaseNumber</a>
+                            </div>
+                        </th>
+                        <th scope="col" class="py-3">
+                            <div class="flex items-center">
+                                <a href="#" @click="sortByy(createdBy)" class="flex"><svg xmlns="http://www.w3.org/2000/svg"
+                                        class="w-4 h-4 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 320 512">
+                                        <path
+                                            d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+                                    </svg>CreatedBy</a>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
+                                <router-link to="/admin/evidence/create">
+
+                                    <button
+                                        class="bg-indigo-500 text-white flex justify-center items-center py-2 text-sm px-4 rounded-lg hover:bg-indigo-600">
+
+                                        Add
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 4.5v15m7.5-7.5h-15" />
+                                        </svg>
+                                    </button>
+                                </router-link>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="evidences in sortedEvidences" :key="evidences.id"
+                        class="flex justify-between bg-white border-b dark:bg-gray-800 dark:border-gray-700 ">
+                        <td class="px-6 py-4 ">
+                            <p>{{ evidences.identifier }}</p>
+                        </td>
+                        <td class="px-6 py-4 ">
+                            <p>{{ evidences.caseNumber }}</p>
+                        </td>
+                        <td class="px-6 py-4 ">
+                            <p>{{ evidences.createdBy }}</p>
+                        </td>
+                        <td class="px-6 py-4 text-right ">
+                            <router-link :to="`/admin/evidence/transfer/${evidences._id}`"
+                                class="inline-flex items-center mr-3 px-3 py-2 text-sm font-medium text-center text-white bg-slate-600 hover:bg-slate-700 rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" class="w-4 h-4 mr-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                                </svg>Transfer</router-link>
+                            <router-link :to="`/admin/evidence/details/${evidences._id}`"
+                                class="inline-flex items-center mr-3 px-3 py-2 text-sm font-medium text-center text-white bg-slate-600 hover:bg-slate-700 rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" class="w-4 h-4 mr-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>Details</router-link>
+                            <router-link :to="`/admin/evidence/edit/${evidences._id}`"
+                                class="inline-flex items-center mr-3 px-3 py-2 text-sm font-medium text-center text-white bg-green-600 hover:bg-green-800 rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000svg">
+                                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2828z">
+                                    </path>
+                                    <path fill-rule="evenodd"
+                                        d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                        clip-rule="evenodd"></path>
+                                </svg>Edit</router-link>
+                            <button type="button" @click="handleDeleteEvidence(evidences._id)"
+                                data-modal-toggle="delete-user-modal"
+                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                        clip-rule="evenodd"></path>
+                                </svg>Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 <script>
+import { mapState } from "vuex";
+// import store from "../../../store/case";
+import axios from "axios"
+
 export default {
-    
-}
+    data() {
+        return {
+            // allevidences: [this.$store.dispatch("fetchEvidences")],
+            sortBy: 'identifier',
+            sortDirection: 1,
+            ignoredProperties: ['_id', '__v'],
+            // fileName : '',
+        };
+    },
+    methods: {
+        async handleDeleteEvidence(id) {
+            // console.log(this.fileName)
+            let apiURL = `http://localhost:3000/evidences/delete/${id}`;
+            let indexOfArrayItem = this.evidences.findIndex((i) => i._id === id);
+            let fileName = this.evidences[indexOfArrayItem].photoName
+            console.log(fileName)
+            if (window.confirm("Do you really want to delete?")) {
+                try {
+                    await axios.put(apiURL, { data: { fileName } });
+                    this.evidences.splice(indexOfArrayItem, 1);
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        },
+        sortByy(property) {
+            if (this.sortBy === property) {
+                this.sortDirection *= -1;
+            } else {
+                this.sortBy = property;
+                this.sortDirection = 1;
+            }
+        }
+    },
+    computed: {
+        ...mapState(["evidences"]),
+        sortedEvidences() {
+            // console.log(this.evidenced, this.sortBy, this.sortDirection);
+            return this.evidences.sort((a, b) => {
+                if (a[this.sortBy] > b[this.sortBy]) return 1 * this.sortDirection;
+                if (a[this.sortBy] < b[this.sortBy]) return -1 * this.sortDirection;
+                return 0;
+            });
+        },
+        objectProperties() {// eslint-disable-line
+            return Object.keys(this.evidences[0]).filter(
+                (property) => !this.ignoredProperties.includes(property));
+        },
+        objectData() {
+            return Object.data(this.evidences[1]).filter(
+                console.log(this.evidences[1]),
+                (property) => !this.ignoredProperties.includes(property)
+            )
+        }
+    },
+    created() {
+        this.$store.dispatch("fetchEvidences");
+    },
+};
 </script>
-<style>
-    
-</style>
+
+

@@ -11,26 +11,39 @@ import {
 // import postRouter from "./routes/postRouter";
 // import userRouter from "./routes/userRouter";
 import caseRouter from "./routes/caseRouter";
+import evidenceRouter from "./routes/evidenceRouter";
+const multer = require("multer");
+const path = require("path");
 
 mongoose
   .connect(`${MONGO_CONNECTION_URI}:${MONGO_DB_PORT}/${MONGO_DB_NAME}`)
   .then(() => {
     console.log(`Connected to mongodb on port ${MONGO_DB_PORT}`);
-
     const app = express();
-
-    app.use(
-      cors({
-        origin: "*",
-      })
-    );
-
+    app.use(cors({ origin: "*", }));
+    
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
-    // app.use("/categories", categoryRouter);
-    // app.use("/users", userRouter);
-    // app.use("/posts", postRouter);
+    const storage = multer.diskStorage({
+      destination: (req, file, cb) => {
+        console.log(file);
+        cb(null, "./uploads");
+      },
+      filename: function (req, file, cb) {
+        console.log(file);
+        // const fileName = path.basename(file.originalname);
+        cb(null, Date.now() + file.originalname);
+      },
+    });
+
+    // const upload = multer({ storage: storage }).single("photo");
+    app.use(express.static("public"));
+    app.get("/uploads/evidences/:filename", (req, res) => {
+      const filename = req.params.filename;
+      res.sendFile(path.join(__dirname, "uploads/evidences", filename)); // Serve the photo file from the uploads folder
+    });
     app.use("/cases", caseRouter);
+    app.use("/evidences", evidenceRouter);
     app.get("*", (req, res) => res.status(404).json({ content: "not_found" }));
 
     app.listen(API_PORT, () => {

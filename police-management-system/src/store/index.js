@@ -78,6 +78,7 @@ const store = createStore({
     user: null,
     posts: [],
     cases: [],
+    evidences: [],
   },
   getters: {
     numberOfPosts(state) {
@@ -91,6 +92,10 @@ const store = createStore({
 
       return state.user.email;
     },
+    currentUserEmail: (state) => {
+      const email = state.user.email;
+      return email;
+    },
   },
   mutations: {
     setPosts(state, newPosts) {
@@ -101,6 +106,9 @@ const store = createStore({
     },
     setCases(state, cases) {
       state.cases = cases;
+    },
+    setEvidences(state, evidences) {
+      state.evidences = evidences;
     },
   },
   actions: {
@@ -123,6 +131,11 @@ const store = createStore({
       const res = await fetch("http://localhost:3000/cases");
       const cases = await res.json();
       commit("setCases", cases);
+    },
+    async fetchEvidences({ commit }) {
+      const res = await fetch("http://localhost:3000/evidences");
+      const evidences = await res.json();
+      commit("setEvidences", evidences);
     },
   },
   modules: {},

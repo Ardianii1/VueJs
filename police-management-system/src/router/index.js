@@ -65,6 +65,16 @@ import Admin from "../views/admin/index.vue";
       name: "editEvidence",
     },
     {
+      name: "transferEvidence",
+      path: "/admin/evidence/transfer/:id",
+      component: () => import("../views/admin/evidence/TransferEvidence.vue"),
+    },
+    {
+      path: "/admin/evidence/details/:id",
+      component: () => import("../views/admin/evidence/EvidenceDetails.vue"),
+      name: "detailsEvidence",
+    },
+    {
       path: "/",
       name: "home",
       component: HomeView,
