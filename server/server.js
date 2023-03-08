@@ -42,6 +42,10 @@ mongoose
       const filename = req.params.filename;
       res.sendFile(path.join(__dirname, "uploads/evidences", filename)); // Serve the photo file from the uploads folder
     });
+    app.get("/uploads/cases/:filename", (req, res) => {
+      const filename = req.params.filename;
+      res.sendFile(path.join(__dirname, "uploads/cases", filename)); // Serve the photo file from the uploads folder
+    });
     app.use("/cases", caseRouter);
     app.use("/evidences", evidenceRouter);
     app.get("*", (req, res) => res.status(404).json({ content: "not_found" }));

@@ -5,6 +5,8 @@ import HomeView from '../views/HomeView.vue'
 // import AboutView from '../views/AboutView.vue'
 // import ContactView from '../views/ContactView.vue'
 import Admin from "../views/admin/index.vue";
+import AdminLayout from "../components/AdminLayout.vue";
+
 
 
 // const router = createRouter({
@@ -12,68 +14,115 @@ import Admin from "../views/admin/index.vue";
 //   routes:
   const routes = [
     {
-      beforeEnter: (to, from, next) => {
-        if (store.state.user) {
-          next();
-        } else {
-          next("/login");
-        }
-      },
+      // beforeEnter: (to, from, next) => {
+      //   if (store.state.user) {
+      //     next();
+      //   } else {
+      //     next("/login");
+      //   }
+      // },
       path: "/admin",
       name: "admin",
-      component: Admin,
+      component: AdminLayout,
       meta: {
         requiresAuth: true,
       },
+      children: [
+        {
+          path: "dashboard",
+          name: "dashboard",
+          component: Admin,
+        },
+        {
+          path: "/admin/case-management",
+          name: "cases",
+          component: () =>
+            import(
+              /* webpackChunkName: "cases" */ "../views/admin/caseManagement/Cases.vue"
+            ),
+        },
+        {
+          path: "/admin/case-management/create",
+          name: "createCase",
+          component: () =>
+            import(
+              /* webpackChunkName: "createCase" */ "../views/admin/caseManagement/CreateCaseManagement.vue"
+            ),
+        },
+        {
+          name: "editCase",
+          path: "/admin/case-management/edit/:id",
+          component: () =>
+            import("../views/admin/caseManagement/EditCaseManagement.vue"),
+        },
+        {
+          name: "transferCase",
+          path: "/admin/case-management/transfer/:id",
+          component: () =>
+            import("../views/admin/caseManagement/TransferCase.vue"),
+        },
+        {
+          name: "caseDetails",
+          path: "/admin/case-management/details/:id",
+          component: () =>
+            import("../views/admin/caseManagement/CaseDetails.vue"),
+        },
+        {
+          path: "evidence",
+          name: "evidence",
+          component: () => import("../views/admin/evidence/Evidences.vue"),
+        },
+        {
+          path: "evidence/create",
+          name: "creatEvidence",
+          component: () => import("../views/admin/evidence/CreateEvidence.vue"),
+        },
+        {
+          path: "evidence/edit/:id",
+          name: "editEvidence",
+          component: () => import("../views/admin/evidence/EditEvidence.vue"),
+        },
+        {
+          path: "evidence/transfer/:id",
+          name: "transferEvidence",
+          component: () =>
+            import("../views/admin/evidence/TransferEvidence.vue"),
+        },
+        {
+          path: "evidence/details/:id",
+          name: "detailsEvidence",
+          component: () =>
+            import("../views/admin/evidence/EvidenceDetails.vue"),
+        },
+      ],
     },
-    {
-      path: "/admin/case-management",
-      name: "cases",
-      component: () =>
-        import(
-          /* webpackChunkName: "cases" */ "../views/admin/caseManagement/Cases.vue"
-        ),
-    },
-    {
-      path: "/admin/case-management/create",
-      name: "createCase",
-      component: () =>
-        import(
-          /* webpackChunkName: "createCase" */ "../views/admin/caseManagement/CreateCaseManagement.vue"
-        ),
-    },
-    {
-      name: "editCase",
-      path: "/admin/case-management/edit/:id",
-      component: () =>
-        import("../views/admin/caseManagement/EditCaseManagement.vue"),
-    },
-    {
-      path: "/admin/evidence",
-      name: "evidence",
-      component: () => import("../views/admin/evidence/Evidences.vue"),
-      children: [],
-    },
-    {
-      path: "/admin/evidence/create",
-      component: () => import("../views/admin/evidence/CreateEvidence.vue"),
-      name: "creatEvidence",
-    },
-    {
-      path: "/admin/evidence/edit/:id",
-      component: () => import("../views/admin/evidence/EditEvidence.vue"),
-      name: "editEvidence",
-    },
-    {
-      name: "transferEvidence",
-      path: "/admin/evidence/transfer/:id",
-      component: () => import("../views/admin/evidence/TransferEvidence.vue"),
-    },
-    {
-      path: "/admin/evidence/details/:id",
-      component: () => import("../views/admin/evidence/EvidenceDetails.vue"),
-      name: "detailsEvidence",
-    },
+
+    // {
+    //   path: "/admin/evidence",
+    //   name: "evidence",
+    //   component: () => import("../views/admin/evidence/Evidences.vue"),
+    //   children: [],
+    // },
+    // {
+    //   path: "/admin/evidence/create",
+    //   component: () => import("../views/admin/evidence/CreateEvidence.vue"),
+    //   name: "creatEvidence",
+    // },
+    // {
+    //   path: "/admin/evidence/edit/:id",
+    //   component: () => import("../views/admin/evidence/EditEvidence.vue"),
+    //   name: "editEvidence",
+    // },
+    // {
+    //   name: "transferEvidence",
+    //   path: "/admin/evidence/transfer/:id",
+    //   component: () => import("../views/admin/evidence/TransferEvidence.vue"),
+    // },
+    // {
+    //   path: "/admin/evidence/details/:id",
+    //   component: () => import("../views/admin/evidence/EvidenceDetails.vue"),
+    //   name: "detailsEvidence",
+    // },
     {
       path: "/",
       name: "home",

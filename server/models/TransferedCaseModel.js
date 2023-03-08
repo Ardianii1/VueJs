@@ -8,6 +8,6 @@ const schema = mongoose.Schema({
   transferNotes: String,
 });
 
-const model = mongoose.model("transferedEvidences", schema);
+const model = mongoose.model("transferedCases", schema);
 
 export default model;

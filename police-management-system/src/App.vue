@@ -21,19 +21,10 @@ import { getAuth, onAuthStateChanged } from '@firebase/auth';
 </script>
 
 <template>
-  <NavBar/>
-  <!-- <HomeView/> -->
-  <!-- <header > -->
-
-    <RouterView />  
-    <!-- <div class="wrapper"> -->
-      <!-- <nav class="nav">
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/contact">Contact</RouterLink>
-      </nav> -->
-    <!-- </div> -->
-  <!-- </header> -->
+  <div class="bg-slate-300 h-screen overflow-y-hidden">
+    <NavBar/>
+    <RouterView />
+  </div>  
 
 </template>
 

@@ -7,10 +7,7 @@ const schema = mongoose.Schema({
   notes: String,
   storageLocation: String,
   handlingInstructions: String,
-  photo: {
-    contentType: String,
-    data: Buffer,
-  },
+  contentType: String,
   photoName: String,
   createdBy: String,
   createdAt: String,

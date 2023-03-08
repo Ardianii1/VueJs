@@ -1,12 +1,11 @@
 import express from "express";
+import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import evidenceController from "../controllers/evidenceController";
+import EvidenceModel from "../models/EvidenceModel";
+import createEvidenceSchema from "../validators/evidence/create";
 const multer = require("multer");
 const path = require("path");
-import createEvidenceSchema from "../validators/evidence/create";
-import EvidenceModel from "../models/EvidenceModel";
-import { ReasonPhrases, StatusCodes } from "http-status-codes";
 const moment = require("moment");
-
 const evidenceRouter = express.Router({ mergeParams: true });
 
 const storage = multer.diskStorage({
@@ -40,7 +39,6 @@ evidenceRouter.post("/create", async (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      // console.log(req.body);
       res.send("uploaded");
     }
     const {
@@ -72,17 +70,21 @@ evidenceRouter.post("/create", async (req, res) => {
       notes,
       storageLocation,
       handlingInstructions,
-      photo: { contentType: mimetype, data: buffer },
+      contentType: mimetype,
       photoName: photoNamee,
       createdBy,
       createdAt: formattedDate,
       status,
     });
-    // console.log(newEvidence.photo)
-
+    const validationResult = createEvidenceSchema.validate(newEvidence);
+    if (validationResult.error) {
+      if (!res.headersSent) {
+        res.setHeader("Content-Type", "application/json");
+        res.status(400).send({ message: "Bad Request" });
+      }
+    }
     newEvidence.save();
     return res.status(201);
-    // return res.send('okk')
   });
 });
 evidenceRouter.put("/:evidenceId", evidenceController.edit);

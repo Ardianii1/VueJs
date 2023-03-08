@@ -5,7 +5,7 @@
                 Back
             </button>
         </router-link>
-        <div class="flex py-3 justify-center items-center  ">
+        <div class="flex py-3 justify-center items-center  bg-slate-300">
             <form @submit.prevent="handleTransferEvidence"
                 class="p-4 mb-4 w-1/2 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-800 sm:p-6 dark:bg-gray-700">
                 <div class="text-center text-white text-lg py-3">
@@ -61,18 +61,21 @@
                     </div>
                 </div>
                 <button type="sumbit"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Transfer</button>
-                <router-link :to="`/admin/evidence`"><button type="reset"
-                        class="text-white bg-red-700 hover:bg-red-800 focus:ring-2 focus:outline-none  font-medium rounded-lg text-sm w-full sm:w-auto ml-3 px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 ">Cancel</button></router-link>
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Transfer
+                </button>
+                <router-link :to="`/admin/evidence`">
+                    <button type="reset"
+                        class="text-white bg-red-700 hover:bg-red-800 focus:ring-2 focus:outline-none  font-medium rounded-lg text-sm w-full sm:w-auto ml-3 px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 ">
+                        Cancel
+                    </button>
+                </router-link>
             </form>
-
         </div>
     </div>
 </template>
 <script>
 import axios from 'axios';
-import firebase from '../../../firebase/index';
-import { mapGetters, mapState } from 'vuex';
 import 'firebase/auth';
 export default {
     data() {
@@ -91,10 +94,7 @@ export default {
     },
     methods: {
         async handleTransferEvidence() {
-            console.log(this.newEvidence.createdBy)
-            console.log(this.newEvidence.newOfficer)
             try {
-                // this.newEvidence.createdBy = this.newEvidence.newOfficer
                 const response = await axios.put(`http://localhost:3000/evidences/transfer/${this.$route.params.id}`, this.newEvidence, {
                     headers: {
                         'Content-Type': 'application/json'
@@ -113,11 +113,8 @@ export default {
             this.newEvidence = res.data;
             this.newEvidence.newOfficer = this.newEvidence.createdBy
         });
-        // console.log(this.usersEmail.id)
     },
     computed: {
-        // ...mapState(['users']),
-        // ...mapGetters(['usersEmail']),
     }
 }
 </script>

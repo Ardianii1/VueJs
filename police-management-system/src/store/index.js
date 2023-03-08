@@ -77,7 +77,7 @@ const store = createStore({
   state: {
     user: null,
     posts: [],
-    cases: [],
+    caseees: [],
     evidences: [],
   },
   getters: {
@@ -104,8 +104,8 @@ const store = createStore({
     setUser(state, user) {
       state.user = user;
     },
-    setCases(state, cases) {
-      state.cases = cases;
+    setCases(state, caseees) {
+      state.caseees = caseees;
     },
     setEvidences(state, evidences) {
       state.evidences = evidences;
@@ -129,8 +129,8 @@ const store = createStore({
     },
     async fetchCases({ commit }) {
       const res = await fetch("http://localhost:3000/cases");
-      const cases = await res.json();
-      commit("setCases", cases);
+      const caseees = await res.json();
+      commit("setCases", caseees);
     },
     async fetchEvidences({ commit }) {
       const res = await fetch("http://localhost:3000/evidences");

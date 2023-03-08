@@ -1,14 +1,21 @@
 import mongoose from "mongoose";
 
 const schema = mongoose.Schema({
-  casenumber: Number,
-  date: Date,
+  casenumber: String,
+  dateof: String,
   location: String,
   description: String,
   parties: String,
-  includedparites: String,
   status: String,
   notes: String,
+  photo: {
+    contentType: String,
+    data: Buffer,
+  },
+  photoName: String,
+  createdBy: String,
+  createdAt: String,
+  deleted: String,
 });
 
 const model = mongoose.model("cases", schema);
