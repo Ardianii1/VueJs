@@ -12,6 +12,7 @@ import {
 // import userRouter from "./routes/userRouter";
 import caseRouter from "./routes/caseRouter";
 import evidenceRouter from "./routes/evidenceRouter";
+import userRouter from "./routes/userRouter"
 const multer = require("multer");
 const path = require("path");
 
@@ -46,6 +47,7 @@ mongoose
       const filename = req.params.filename;
       res.sendFile(path.join(__dirname, "uploads/cases", filename)); // Serve the photo file from the uploads folder
     });
+    app.use("/users", userRouter);
     app.use("/cases", caseRouter);
     app.use("/evidences", evidenceRouter);
     app.get("*", (req, res) => res.status(404).json({ content: "not_found" }));

@@ -6,6 +6,7 @@ const schema = mongoose.Schema({
   transferedTo: String,
   caseNumber: String,
   transferNotes: String,
+  status: String,
 });
 
 const model = mongoose.model("transferedEvidences", schema);

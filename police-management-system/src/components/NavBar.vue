@@ -1,19 +1,33 @@
 <script >
 import { RouterLink, RouterView } from 'vue-router'
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters, mapState, mapActions } from 'vuex';
 import { getAuth, signOut } from '@firebase/auth';
 import { ref } from 'vue';
 
 export default {
+  data() {
+    return {
+      isadmin: false,
+    }
+  },
   methods: {
+    ...mapActions(['logout', '']),
     handleLogout() {
       signOut(getAuth());
+      // this.logout();
+      localStorage.removeItem('userRole')
       this.$router.push('/login');
     }
   },
   computed: {
-    ...mapGetters(['numberOfPosts', 'userEmail']),
-    ...mapState(['user'])
+    ...mapGetters(['numberOfPosts', 'userEmail', 'userRole']),
+    ...mapState(['user']),
+    ...mapState(['userRole']),
+    // isAdmin() {
+    //   if (this.userRole === 'admin') {
+    //     this.isadmin == true;
+    //   }
+    // }
   },
   setup() {
     let open = ref(true)
@@ -21,6 +35,9 @@ export default {
       open.value = !open.value;
     }
     return { open, MenuOpen }
+  },
+  created() {
+    
   }
 }
 </script>
@@ -46,7 +63,7 @@ export default {
       <li class=" md:my-0 my-6 pl-6">
         <router-link @click="MenuOpen()" to="/" class=" font-medium text-white dark:hover:text-gray-400">Home</router-link>
         </li>
-      <li class=" md:my-0 my-6 pl-6">
+      <li v-if="user && userRole==='admin'" class=" md:my-0 my-6 pl-6">
         <router-link @click="MenuOpen()" to="/admin/dashboard" class=" font-medium text-white dark:hover:text-gray-400">Admin</router-link>
         </li>
       <li class=" md:my-0 my-6 pl-6">

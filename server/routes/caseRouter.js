@@ -32,6 +32,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single("photo");
 
 caseRouter.get("/", caseController.list);
+caseRouter.get("/transfered", caseController.transfered);
 caseRouter.get("/:caseId", caseController.find);
 caseRouter.post("/create", async (req, res) => {
   upload(req, res, (err) => {
@@ -84,5 +85,6 @@ caseRouter.post("/create", async (req, res) => {
 caseRouter.put("/:caseId", caseController.edit);
 caseRouter.put("/transfer/:caseId", caseController.transfer);
 caseRouter.put("/delete/:caseId", caseController.delete);
+caseRouter.put("/deletetransfered/transfered/:transferedCaseId", caseController.deleteTransfered);
 
 export default caseRouter;

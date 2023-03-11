@@ -33,6 +33,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single("photo");
 
 evidenceRouter.get("/", evidenceController.list);
+evidenceRouter.get("/transfered", evidenceController.transfered);
 evidenceRouter.get("/:evidenceId", evidenceController.find);
 evidenceRouter.post("/create", async (req, res) => {
   upload(req, res, (err) => {
@@ -90,5 +91,6 @@ evidenceRouter.post("/create", async (req, res) => {
 evidenceRouter.put("/:evidenceId", evidenceController.edit);
 evidenceRouter.put("/transfer/:evidenceId", evidenceController.transfer);
 evidenceRouter.put("/delete/:evidenceId", evidenceController.delete);
+evidenceRouter.put("/deletetransfered/transfered/:transferedEvidenceId", evidenceController.deleteTransfered);
 
 export default evidenceRouter;

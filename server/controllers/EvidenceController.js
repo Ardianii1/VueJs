@@ -44,6 +44,16 @@ const controller = {
         .json({ error: err.message });
     }
   },
+  transfered: async (req, res) => {
+    try {
+      const list = await TransferedEvidenceModel.find({ status: "visible" });
+      return res.json(list);
+    } catch (err) {
+      res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: err.message });
+    }
+  },
   find: async (req, res) => {
     try {
       const evidence = await EvidenceModel.findOne({
@@ -105,15 +115,19 @@ const controller = {
         return res.status(404).send({ message: "Evidence not found" });
       }
 
-      const transferredEvidence = new TransferedEvidenceModel({
-        transferDate: formattedDate,
-        transferedFrom: createdBy,
-        transferedTo: newOfficer,
-        caseNumber: evidenceId,
-        transferNotes: req.body.transferNotes,
-      });
-
-      await transferredEvidence.save();
+      if (newOfficer == createdBy) {
+        return;
+      } else {
+        const transferredEvidence = new TransferedEvidenceModel({
+          transferDate: formattedDate,
+          transferedFrom: createdBy,
+          transferedTo: newOfficer,
+          caseNumber: evidenceId,
+          transferNotes: req.body.transferNotes,
+          status: "visible",
+        });
+        await transferredEvidence.save();
+      }
 
       res.send({ message: "Case transferred successfully" });
     } catch (error) {
@@ -172,6 +186,23 @@ const controller = {
     //     .status(StatusCodes.NOT_FOUND)
     //     .json({ message: ReasonPhrases.NOT_FOUND });
     // }
+  },
+  deleteTransfered: async (req, res) => {
+    const transferedevidEnceId = req.params.transferedEvidenceId;
+    const status = "hidden";
+    try {
+      const updatedtransferevidence =
+        await TransferedEvidenceModel.findByIdAndUpdate(
+          transferedevidEnceId,
+          { status },
+          { new: true }
+        );
+      res.status(200).send(updatedtransferevidence);
+    } catch (err) {
+      res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: ReasonPhrases.NOT_FOUND });
+    }
   },
 };
 

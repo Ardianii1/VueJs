@@ -3,11 +3,22 @@ import CaseModel from "../models/CaseModel";
 import createCaseSchema from "../validators/case/create";
 import updateCaseSchema from "../validators/case/update";
 import TransferedCaseModel from "../models/TransferedCaseModel";
+const moment = require("moment");
 
 const controller = {
   list: async (req, res) => {
     const list = await CaseModel.find({ deleted: "visible" });
     return res.json(list);
+  },
+  transfered: async (req, res) => {
+    try {
+      const list = await TransferedCaseModel.find({ status: "visible" });
+      return res.json(list);
+    } catch (err) {
+      res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: err.message });
+    }
   },
   find: async (req, res) => {
     try {
@@ -46,13 +57,14 @@ const controller = {
   edit: async (req, res) => {
     const validationResult = updateCaseSchema.validate(req.body);
     console.log(req.body);
+    console.log(validationResult.error);
 
-    // if (validationResult.error) {
-    //   return res.status(StatusCodes.UNAUTHORIZED).json({
-    //     message: ReasonPhrases.UNAUTHORIZED,
-    //     error: validationResult.error.message,
-    //   });
-    // }
+    if (validationResult.error) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({
+        message: ReasonPhrases.UNAUTHORIZED,
+        error: validationResult.error.message,
+      });
+    }
 
     try {
       await CaseModel.updateOne({ _id: req.params.caseId }, req.body);
@@ -75,6 +87,7 @@ const controller = {
     const createdBy = req.body.createdBy;
     const update = { ...req.body };
     console.log(update);
+    const formattedDate = moment().format("MMMM D, YYYY hh:mm A");
 
     try {
       await CaseModel.updateOne(
@@ -90,15 +103,19 @@ const controller = {
         return res.status(404).send({ message: "Case not found" });
       }
 
-      const transferredCase = new TransferedCaseModel({
-        transferDate: Date.now(),
-        transferedFrom: createdBy,
-        transferedTo: newOfficer,
-        caseNumber: caseId,
-        transferNotes: req.body.transferNotes,
-      });
-
-      await transferredCase.save();
+      if (newOfficer == createdBy) {
+        return;
+      } else {
+        const transferredCase = new TransferedCaseModel({
+          transferDate: formattedDate,
+          transferedFrom: createdBy,
+          transferedTo: newOfficer,
+          caseNumber: caseId,
+          transferNotes: req.body.transferNotes,
+          status: "visible",
+        });
+        await transferredCase.save();
+      }
 
       res.send({ message: "Case transferred successfully" });
     } catch (error) {
@@ -112,6 +129,22 @@ const controller = {
     try {
       await CaseModel.deleteOne({ _id: caseId });
       res.json({ deleted: true });
+    } catch (err) {
+      res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: ReasonPhrases.NOT_FOUND });
+    }
+  },
+  deleteTransfered: async (req, res) => {
+    const transferedCaseId = req.params.transferedCaseId;
+    const status = "hidden";
+    try {
+      const updatedtransferCase = await TransferedCaseModel.findByIdAndUpdate(
+        transferedCaseId,
+        { status },
+        { new: true }
+      );
+      res.status(200).send(updatedtransferCase);
     } catch (err) {
       res
         .status(StatusCodes.NOT_FOUND)

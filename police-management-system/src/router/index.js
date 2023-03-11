@@ -26,6 +26,7 @@ import AdminLayout from "../components/AdminLayout.vue";
       component: AdminLayout,
       meta: {
         requiresAuth: true,
+        requiresAdmin: true,
       },
       children: [
         {
@@ -94,6 +95,21 @@ import AdminLayout from "../components/AdminLayout.vue";
           component: () =>
             import("../views/admin/evidence/EvidenceDetails.vue"),
         },
+        {
+          path: "users",
+          name: "users",
+          component: () => import("../views/admin/users/Users.vue"),
+        },
+        {
+          path: "transferedEvidences",
+          name: "transferedEvidences",
+          component: () => import("../views/admin/transferedEvidences.vue"),
+        },
+        {
+          path: "transferedCases",
+          name: "transferedCases",
+          component: () => import("../views/admin/transferedCases.vue"),
+        },
       ],
     },
 
@@ -157,6 +173,20 @@ import AdminLayout from "../components/AdminLayout.vue";
       component: () =>
         import(/* webpackChunkName: "login" */ "../views/user/LoginForm.vue"),
     },
+    {
+      path: "/404",
+      name: "404",
+      component: () =>
+        import(
+          /* webpackChunkName: "register" */ "../views/FourOFourView.vue"
+        ),
+    },
+    {
+      path: "/unauthorized",
+      name: "unauthorized",
+      component: () =>
+        import(/* webpackChunkName: "register" */ "../views/unauthorized.vue"),
+    },
   ];
 // })
 
@@ -171,16 +201,21 @@ const routeNames = routes.flatMap((route) =>
     ? route.children.flatMap((route) => route.name).concat(route.name)
     : route.name
 );
-// router.beforeEach((to, from, next) => {
-//   const auth = getAuth();
-//   onAuthStateChanged(auth, (user) => {
-//     if (guestRouteNames.includes(to.name) && user) {
-//       next({ name: "home" });
-//     } else if (!routeNames.includes(to.name)) {
-//       next({ name: "404" });
-//     } else {
-//       next();
-//     }
-//   });
-// });
+router.beforeEach(async (to, from, next) => {
+  // const auth = getAuth();
+  const role = store.state.userRole;
+  const user = store.state.user;
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  const requiresAdmin = to.matched.some((record) => record.meta.requiresAdmin);
+  if (!routeNames.includes(to.name)) {
+    next({ name: "404" });
+  }
+  if (requiresAuth && !user) {
+    next({ name: "login" });
+  } else if (requiresAdmin && role !== "admin") {
+    next({ name: "unauthorized" });
+  } else {
+    next();
+  }
+});
 export default router;
