@@ -2,25 +2,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import store from "../store";
 import HomeView from '../views/HomeView.vue'
-// import AboutView from '../views/AboutView.vue'
-// import ContactView from '../views/ContactView.vue'
 import Admin from "../views/admin/index.vue";
 import AdminLayout from "../components/AdminLayout.vue";
 
 
-
-// const router = createRouter({
-//   history: createWebHistory(import.meta.env.BASE_URL),
-//   routes:
-  const routes = [
+const routes = [
     {
-      // beforeEnter: (to, from, next) => {
-      //   if (store.state.user) {
-      //     next();
-      //   } else {
-      //     next("/login");
-      //   }
-      // },
       path: "/admin",
       name: "admin",
       component: AdminLayout,
@@ -110,35 +97,53 @@ import AdminLayout from "../components/AdminLayout.vue";
           name: "transferedCases",
           component: () => import("../views/admin/transferedCases.vue"),
         },
+        {
+          path: "crimes",
+          name: "crimes",
+          component: () => import("../views/admin/reports/crimes/crimes.vue"),
+        },
+        {
+          path: "crimes/details/:id",
+          name: "detailsCrimes",
+          component: () => import("../views/admin/reports/crimes/crimesDetails.vue"),
+        },
+        {
+          path: "accidents",
+          name: "accidents",
+          component: () => import("../views/admin/reports/accidents/accidents.vue"),
+        },
+        {
+          path: "accidents/details/:id",
+          name: "detailsAccidents",
+          component: () => import("../views/admin/reports/accidents/accidentsDetails.vue"),
+        },
+        {
+          path: "emergencies",
+          name: "emergencies",
+          component: () => import("../views/admin/reports/emergencies/emergencies.vue"),
+        },
+        {
+          path: "emergencies/details/:id",
+          name: "detailsEmergencies",
+          component: () => import("../views/admin/reports/emergencies/emergenciesDetails.vue"),
+        },
       ],
     },
-
-    // {
-    //   path: "/admin/evidence",
-    //   name: "evidence",
-    //   component: () => import("../views/admin/evidence/Evidences.vue"),
-    //   children: [],
-    // },
-    // {
-    //   path: "/admin/evidence/create",
-    //   component: () => import("../views/admin/evidence/CreateEvidence.vue"),
-    //   name: "creatEvidence",
-    // },
-    // {
-    //   path: "/admin/evidence/edit/:id",
-    //   component: () => import("../views/admin/evidence/EditEvidence.vue"),
-    //   name: "editEvidence",
-    // },
-    // {
-    //   name: "transferEvidence",
-    //   path: "/admin/evidence/transfer/:id",
-    //   component: () => import("../views/admin/evidence/TransferEvidence.vue"),
-    // },
-    // {
-    //   path: "/admin/evidence/details/:id",
-    //   component: () => import("../views/admin/evidence/EvidenceDetails.vue"),
-    //   name: "detailsEvidence",
-    // },
+    {
+      path:"/reports/crimeReport",
+      name: "crimeReport",
+      component:()=> import("../views/reports/CrimeReport.vue")
+    },
+    {
+      path:"/reports/accidentReport",
+      name: "accidentReport",
+      component:()=> import("../views/reports/AccidentReport.vue")
+    },
+    {
+      path:"/reports/emergencyReport",
+      name: "emergencyReport",
+      component:()=> import("../views/reports/EmergencyReport.vue")
+    },
     {
       path: "/",
       name: "home",
@@ -147,9 +152,6 @@ import AdminLayout from "../components/AdminLayout.vue";
     {
       path: "/about",
       name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () =>
         import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
     },
@@ -187,8 +189,7 @@ import AdminLayout from "../components/AdminLayout.vue";
       component: () =>
         import(/* webpackChunkName: "register" */ "../views/unauthorized.vue"),
     },
-  ];
-// })
+];
 
 const router = createRouter({
   history: createWebHistory(),

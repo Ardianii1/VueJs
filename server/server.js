@@ -13,6 +13,9 @@ import {
 import caseRouter from "./routes/caseRouter";
 import evidenceRouter from "./routes/evidenceRouter";
 import userRouter from "./routes/userRouter"
+import crimeRouter from "./routes/crimeRouter";
+import accidentRouter from "./routes/accidentRouter";
+import emergencyRouter from "./routes/emergencyRouter";
 const multer = require("multer");
 const path = require("path");
 
@@ -47,9 +50,24 @@ mongoose
       const filename = req.params.filename;
       res.sendFile(path.join(__dirname, "uploads/cases", filename)); // Serve the photo file from the uploads folder
     });
+    app.get("/uploads/reports/crimes/:filename", (req, res) => {
+      const filename = req.params.filename;
+      res.sendFile(path.join(__dirname, "uploads/reports/crimes", filename)); // Serve the photo file from the uploads folder
+    });
+    app.get("/uploads/reports/accidents/:filename", (req, res) => {
+      const filename = req.params.filename;
+      res.sendFile(path.join(__dirname, "uploads/reports/accidents", filename)); // Serve the photo file from the uploads folder
+    });
+    app.get("/uploads/reports/emergencies/:filename", (req, res) => {
+      const filename = req.params.filename;
+      res.sendFile(path.join(__dirname, "uploads/reports/emergencies", filename)); // Serve the photo file from the uploads folder
+    });
     app.use("/users", userRouter);
     app.use("/cases", caseRouter);
     app.use("/evidences", evidenceRouter);
+    app.use("/crimes", crimeRouter);
+    app.use("/accidents", accidentRouter);
+    app.use("/emergencys", emergencyRouter);
     app.get("*", (req, res) => res.status(404).json({ content: "not_found" }));
 
     app.listen(API_PORT, () => {

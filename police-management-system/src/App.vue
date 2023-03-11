@@ -4,11 +4,13 @@
 // import ContactViewVue from './views/ContactView.vue';
 import NavBar from './components/NavBar.vue';
 import HomeView from './views/HomeView.vue'
+import Footer from './components/Footer.vue';
 import { getAuth, onAuthStateChanged } from '@firebase/auth';
   export default{
   components:{
     NavBar,
-    HomeView,
+      HomeView,
+    Footer,
   },
   mounted() {
     // this.$store.dispatch('fetchPosts');
@@ -21,9 +23,10 @@ import { getAuth, onAuthStateChanged } from '@firebase/auth';
 </script>
 
 <template>
-  <div class="bg-slate-300 h-screen overflow-y-hidden">
+  <div class="bg-slate-300 h-screen ">
     <NavBar/>
     <RouterView />
+    <!-- <Footer/>  -->
   </div>  
 
 </template>

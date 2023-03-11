@@ -1,35 +1,53 @@
 <template>
   <router-view />
-    <div class="p-4 sm:ml-64">
-       <div class="p-4 border-2 border-gray-200  rounded-lg dark:border-gray-700">
+    <div class="p-4 sm:ml-64  overflow-y-hidden">
+       <div class="p-4  border-2 border-gray-200  rounded-lg dark:border-gray-700">
           <div class="grid lg:grid-cols-3 md:grid-cols-2 lg:gap-5 md:gap-4 gap-y-4 mb-4">
-             <div class="flex text-center pt-3 justify-center h-48 rounded-lg bg-gray-50 dark:bg-gray-800">
+             <div class="flex text-center pt-3 justify-center h-44 rounded-lg bg-gray-50 dark:bg-gray-800">
                 <router-link :to="`/admin/case-management`" class="px-3">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Cases</h5>
                     <p class="font-normal  text-center text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
                 </router-link>
              </div>
-             <div class="flex text-center pt-3 justify-center h-48 rounded-lg bg-gray-50 dark:bg-gray-800">
+             <div class="flex text-center pt-3 justify-center h-44 rounded-lg bg-gray-50 dark:bg-gray-800">
                   <router-link :to="`/admin/evidence`" class="px-3">
                       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Evidences</h5>
                       <p class="font-normal  text-center text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
                   </router-link>
                </div>
-               <div class="flex text-center pt-3 justify-center h-48 rounded-lg bg-gray-50 dark:bg-gray-800">
+               <div class="flex text-center pt-3 justify-center h-44 rounded-lg bg-gray-50 dark:bg-gray-800">
                   <router-link :to="`/admin/transferedEvidences`" class="px-3">
                       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Transfered Evidences</h5>
                       <p class="font-normal  text-center text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
                   </router-link>
                </div>
-               <div class="flex text-center pt-3 justify-center h-48 rounded-lg bg-gray-50 dark:bg-gray-800">
+               <div class="flex text-center pt-3 justify-center h-44 rounded-lg bg-gray-50 dark:bg-gray-800">
                   <router-link :to="`/admin/transferedCases`" class="px-3">
                       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Transfered Cases</h5>
                       <p class="font-normal  text-center text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
                   </router-link>
                </div>
-               <div class="flex text-center pt-3 justify-center h-48 rounded-lg bg-gray-50 dark:bg-gray-800">
+               <div class="flex text-center pt-3 justify-center h-44 rounded-lg bg-gray-50 dark:bg-gray-800">
                   <router-link :to="`/admin/users`" class="px-3">
                       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Users</h5>
+                      <p class="font-normal  text-center text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                  </router-link>
+               </div>
+               <div class="flex text-center pt-3 justify-center h-44 rounded-lg bg-gray-50 dark:bg-gray-800">
+                  <router-link :to="`/admin/crimes`" class="px-3">
+                      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Crimes</h5>
+                      <p class="font-normal  text-center text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                  </router-link>
+               </div>
+               <div class="flex text-center pt-3 justify-center h-44 rounded-lg bg-gray-50 dark:bg-gray-800">
+                  <router-link :to="`/admin/accidents`" class="px-3">
+                      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Accidents</h5>
+                      <p class="font-normal  text-center text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                  </router-link>
+               </div>
+               <div class="flex text-center pt-3 justify-center h-44 rounded-lg bg-gray-50 dark:bg-gray-800">
+                  <router-link :to="`/admin/emergencies`" class="px-3">
+                      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Emergencies</h5>
                       <p class="font-normal  text-center text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
                   </router-link>
                </div>

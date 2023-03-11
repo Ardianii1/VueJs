@@ -1,8 +1,8 @@
 <template>
-  <main>
+  <main class="">
   <!-- <TheWelcome /> -->
-  <h1>Home Page agnesa , Rumejsa, vesa</h1>
-  <p>{{ userRole }}</p>
+  <h1>Home Page </h1>
+  <!-- <p>{{ userRole }}</p> -->
 
   </main>
 </template>

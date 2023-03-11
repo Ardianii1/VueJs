@@ -8,7 +8,7 @@
         </svg>
     </button>
     <aside :class="['fixed', 'top-17', 'left-0', 'w-64', 'h-screen', 'transition-transform', open ? 'translate-x-0 z-50' : '-translate-x-full']" id="default-sidebar" aria-label="Sidebar">
-        <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+        <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-[#0d2034]">
             <ul class="space-y-2">
                 <li>
                     <router-link to="/admin/dashboard"

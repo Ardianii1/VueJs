@@ -15,6 +15,9 @@ const store = createStore({
     caseees: [],
     evidences: [],
     userRole: null,
+    crimes: [],
+    accidents: [],
+    emergencies:[],
   },
   getters: {
     // userRole: (state) => {
@@ -50,6 +53,15 @@ const store = createStore({
     setCases(state, caseees) {
       state.caseees = caseees;
     },
+    setCrimes(state, crimes) {
+      state.crimes = crimes;
+    },
+    setAccidents(state, accidents) {
+      state.accidents = accidents;
+    },
+    setEmergencies(state, emergencies) {
+      state.emergencies = emergencies;
+    },
     setEvidences(state, evidences) {
       state.evidences = evidences;
     },
@@ -82,9 +94,9 @@ const store = createStore({
         onAuthStateChanged(auth, async (user) => {
           if (user) {
             const idTokenResult = await user.getIdTokenResult();
-            console.log(idTokenResult);
+            // console.log(idTokenResult);
             const role = idTokenResult.claims.role;
-            console.log(role);
+            // console.log(role);
             commit("setUserRole", role);
           }
         });
@@ -97,10 +109,26 @@ const store = createStore({
     async registerUser({ commit }, payload) {
       await apiRequest.registerUser(payload);
     },
+    
     async fetchCases({ commit }) {
       const res = await fetch("http://localhost:3000/cases");
       const caseees = await res.json();
       commit("setCases", caseees);
+    },
+    async fetchCrimes({ commit }) {
+      const res = await fetch("http://localhost:3000/crimes");
+      const crimes = await res.json();
+      commit("setCrimes", crimes);
+    },
+    async fetchAccidents({ commit }) {
+      const res = await fetch("http://localhost:3000/accidents");
+      const accidents = await res.json();
+      commit("setAccidents", accidents);
+    },
+    async fetchEmergencies({ commit }) {
+      const res = await fetch("http://localhost:3000/emergencys");
+      const emergencies = await res.json();
+      commit("setEmergencies", emergencies);
     },
     async fetchEvidences({ commit }) {
       const res = await fetch("http://localhost:3000/evidences");

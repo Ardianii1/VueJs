@@ -1,6 +1,6 @@
 import admin from "firebase-admin";
 
-import serviceAccount from "../credentials/projekti-ec037-firebase-adminsdk-9vzoe-8591c48019.json";
+import serviceAccount from "../credentials/policemanagementsystem-firebase-adminsdk-fmft0-f6090d8c8d.json";
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),

@@ -1,12 +1,12 @@
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB6i-hYd53cBNWeOUeZi7pw2DSIvFjQ5FQ",
-  authDomain: "projekti-ec037.firebaseapp.com",
-  projectId: "projekti-ec037",
-  storageBucket: "projekti-ec037.appspot.com",
-  messagingSenderId: "1045509086659",
-  appId: "1:1045509086659:web:33a33488381dcfd9f83176",
+  apiKey: "AIzaSyBz7SABE8fiuGqqgyFNPlNQNv9Ek20iDp8",
+  authDomain: "policemanagementsystem.firebaseapp.com",
+  projectId: "policemanagementsystem",
+  storageBucket: "policemanagementsystem.appspot.com",
+  messagingSenderId: "403493610417",
+  appId: "1:403493610417:web:3e61abb8b468ad9b4cd390",
 };
 
 const app = initializeApp(firebaseConfig);
