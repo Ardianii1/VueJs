@@ -1,10 +1,5 @@
 <template>
     <div>
-        <router-link :to="`/admin/crime`">
-            <button type="button" class="bg-gray-800 text-white py-2 px-4 my-2 mx-2 rounded-lg">
-                Back
-            </button>
-        </router-link>
         <div class="max-w-3xl mx-auto py-8">
             <div class="flex flex-col sm:flex-row justify-center mb-8 bg-slate-200 p-3 rounded-lg">
                 <div class="w-full sm:w-1/2 ">
@@ -33,7 +28,7 @@
                             <span class="font-bold mr-2">Reported at:</span> {{ formattedDate() }}
                         </div>
                         <div class="flex justify-end mt-12">
-                            <router-link :to="`/admin/crimes`">
+                            <router-link :to="`/`">
                                 <button type="button" class="bg-gray-800 text-white py-2 px-4 my-2 mx-2 rounded-lg">
                                     Back
                                 </button>

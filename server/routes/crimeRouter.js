@@ -1,6 +1,7 @@
 import express from "express";
 import CrimeModel from "../models/CrimeModel";
 import CrimeController from"../controllers/CrimeController"
+import createCrimeSchema from "../validators/crime/create";
 const multer = require("multer");
 const path = require("path");
 const moment = require("moment");
@@ -74,6 +75,13 @@ crimeRouter.post("/create", async (req, res) => {
         CreatedAt: formattedDate,
         Status,
       });
+    const validationResult = createCrimeSchema.validate(newCrime);
+    if (validationResult.error) {
+      if (!res.headersSent) {
+        res.setHeader("Content-Type", "application/json");
+        res.status(400).send({ message: "Bad Request" });
+      }
+    }
     newCrime.save();
     return res.status(201);
   });

@@ -48,9 +48,10 @@ export default {
 
       return res.json({ user });
     } catch (error) {
+      console.log(error)
       return res
-        .status(StatusCodes.FORBIDDEN)
-        .json({ error: error.message, message: ReasonPhrases.FORBIDDEN });
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ error: error.code, message: error.message });
     }
   },
 };

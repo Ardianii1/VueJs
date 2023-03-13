@@ -1,5 +1,4 @@
 import { createStore } from "vuex";
-import db from "../firebase/db";
 import loginUser from "../firebase/user/loginUser";
 import signupUser from "../firebase/user/signupUser";
 import apiRequest from "../utility/apiRequest";
@@ -17,13 +16,9 @@ const store = createStore({
     userRole: null,
     crimes: [],
     accidents: [],
-    emergencies:[],
+    emergencies: [],
   },
   getters: {
-    // userRole: (state) => {
-    //   const role = localStorage.getItem("userRole");
-    //   return role;
-    // },
     userRole(state) {
       return state.userRole;
     },
@@ -73,20 +68,14 @@ const store = createStore({
       state.userRole = null;
       localStorage.removeItem("userRole");
     },
+    setUserEmails(state,emails) {
+      state.allUsers = emails;
+    },
   },
   actions: {
-    // async fetchPosts({ commit }) {
-    //   const snapshots = await getDocs(collection(db, "posts"));
-    //   const newPosts = [];
-    //   snapshots.forEach((snapshot) => {
-    //     newPosts.push(snapshot.data());
-    //   });
-    //   commit("setPosts", newPosts) ;
-    // },
     async loginUser({ commit }, payload) {
       const user = await loginUser(payload);
       commit("setUser", user);
-      // commit("setUserRole", userRole);
     },
     async getUserRole({ commit, state }) {
       if (state.user) {
@@ -94,22 +83,21 @@ const store = createStore({
         onAuthStateChanged(auth, async (user) => {
           if (user) {
             const idTokenResult = await user.getIdTokenResult();
-            // console.log(idTokenResult);
             const role = idTokenResult.claims.role;
-            // console.log(role);
+            localStorage.setItem("userRole", role);
+
             commit("setUserRole", role);
           }
         });
       }
     },
     logout({ commit }) {
-      commit('setUser', null);
-      commit('REMOVE_USER_ROLE');
+      commit("setUser", null);
+      commit("REMOVE_USER_ROLE");
     },
     async registerUser({ commit }, payload) {
       await apiRequest.registerUser(payload);
     },
-    
     async fetchCases({ commit }) {
       const res = await fetch("http://localhost:3000/cases");
       const caseees = await res.json();

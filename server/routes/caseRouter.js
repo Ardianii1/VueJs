@@ -1,6 +1,7 @@
 import express from "express";
 import caseController from "../controllers/caseController";
 import CaseModel from "../models/CaseModel";
+import createCaseSchema from "../validators/case/create";
 const multer = require("multer");
 const path = require("path");
 const moment = require("moment");
@@ -78,6 +79,13 @@ caseRouter.post("/create", async (req, res) => {
       status,
       deleted,
     });
+    const validationResult = createCaseSchema.validate(newCase);
+    if (validationResult.error) {
+      if (!res.headersSent) {
+        res.setHeader("Content-Type", "application/json");
+        res.status(400).send({ message: "Bad Request" });
+      }
+    }
     newCase.save();
     return res.status(201);
   });

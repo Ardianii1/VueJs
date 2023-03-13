@@ -1,6 +1,7 @@
 import express from "express";
 import EmergencyModel from "../models/EmergencyModel";
-import EmergencyController from"../controllers/EmergencyController"
+import EmergencyController from "../controllers/EmergencyController"
+import createEmergencySchema from "../validators/emergency/create";
 const multer = require("multer");
 const path = require("path");
 const moment = require("moment");
@@ -74,6 +75,13 @@ emergencyRouter.post("/create", async (req, res) => {
         CreatedAt: formattedDate,
         Status,
       });
+    const validationResult = createEmergencySchema.validate(newEmergency);
+    if (validationResult.error) {
+      if (!res.headersSent) {
+        res.setHeader("Content-Type", "application/json");
+        res.status(400).send({ message: "Bad Request" });
+      }
+    }
     newEmergency.save();
     return res.status(201);
   });

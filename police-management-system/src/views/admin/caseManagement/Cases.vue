@@ -2,6 +2,7 @@
   <div class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
     <div class="md:ml-64 h-screen  px-4 lg:px-12">
       <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+        <h3 class="text-white text-center py-3 font-bold tracking-widest">Cases</h3>
         <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
           <div class="w-full md:w-1/2">
             <form @submit.prevent="search" class="flex items-center">

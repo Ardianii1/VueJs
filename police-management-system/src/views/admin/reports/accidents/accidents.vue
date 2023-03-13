@@ -2,6 +2,7 @@
     <div class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
         <div class="md:ml-64 h-screen  px-4 lg:px-12">
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+                <h3 class="text-white text-center py-3 font-bold tracking-widest">Accidents</h3>
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="w-full md:w-1/2">
                         <form @submit.prevent="search" class="flex items-center">
@@ -77,7 +78,7 @@
                                 <td class="px-4 py-3 truncate">{{ accidents.Dateof }}</td>
                                 <td class="px-4 py-3 truncate">{{ accidents.CreatedAt }}</td>
                                 <td class="px-4 py-3 truncate text-right ">
-                                    <router-link :to="`/admin/accidents/details/${accidents._id}`"
+                                    <router-link :to="`/accidents/details/${accidents._id}`"
                                         class="inline-flex items-center mr-3 px-3 py-2 text-sm font-medium text-center text-white bg-slate-600 hover:bg-slate-700 rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">

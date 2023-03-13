@@ -1,6 +1,11 @@
 import apiCaller from "../apiCaller";
 
-const registerUser = async (payload) =>
-  await apiCaller.post("/users/register", payload);
+const registerUser = async (payload) => {
+  try { 
+    await apiCaller.post("/users/register", payload);
+  } catch(error) {
+    throw error;
+  }
+}
 
 export default registerUser;

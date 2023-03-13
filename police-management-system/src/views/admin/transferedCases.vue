@@ -2,6 +2,7 @@
     <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
         <div class="md:ml-64 h-screen pt-0 px-4 lg:px-12">
             <div class="bg-white dark:bg-gray-800 mb-3 relative shadow-md sm:rounded-lg overflow-hidden">
+                <h3 class="text-white text-center py-3 font-bold tracking-widest">Transfered Cases</h3>
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="w-full md:w-1/2">
                         <form @submit.prevent="search" class="flex items-center">
@@ -94,8 +95,7 @@
                     aria-label="Table navigation">
                     <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
                         Showing
-                        <span class="font-semibold text-gray-900 dark:text-white">1-{{ casesss.length < pageSize ?
-                            casesss.length : pageSize }}</span>
+                        <span class="font-semibold text-gray-900 dark:text-white">1-{{ casesss.length >7 ? pageSize:casesss.length }}</span>
                                 of
                                 <span class="font-semibold text-gray-900 dark:text-white">{{ casesss.length }}</span>
                         </span>
@@ -190,13 +190,11 @@ export default {
     computed: {
         // ...mapState(["transferedCases"]),
         filteredCasesss() {
-            console.log(this.casesss)
             return this.casesss
                 .filter((casee) => {
                     const fields = ['transferDate', 'transferedFrom', 'transferedTo', 'caseNumber'];
                     for (const field of fields) {
                         if (casee[field].toLowerCase().includes(this.searchKeyword.toLowerCase())) {
-                            console.log(casee[field])
                             return true;
                         }
                     }

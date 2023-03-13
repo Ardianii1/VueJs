@@ -1,6 +1,7 @@
 import express from "express";
 import AccidentModel from "../models/AccidentModel";
 import AccidentController from"../controllers/AccidentController"
+import createAccidentSchema from "../validators/accident/create";
 const multer = require("multer");
 const path = require("path");
 const moment = require("moment");
@@ -71,6 +72,13 @@ accidentRouter.post("/create", async (req, res) => {
         CreatedAt: formattedDate,
         Status,
       });
+    const validationResult = createAccidentSchema.validate(newAccident);
+    if (validationResult.error) {
+      if (!res.headersSent) {
+        res.setHeader("Content-Type", "application/json");
+        res.status(400).send({ message: "Bad Request" });
+      }
+    }
     newAccident.save();
     return res.status(201);
   });

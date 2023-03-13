@@ -3,6 +3,7 @@
         <div class="md:ml-64 h-screen pt-0 px-4 lg:px-12">
             <!-- Start coding here -->
             <div class="bg-white dark:bg-gray-800 mb-3 relative shadow-md sm:rounded-lg overflow-hidden">
+                <h3 class="text-white text-center py-3 font-bold tracking-widest">Evidences</h3>
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="w-full md:w-1/2">
                         <form @submit.prevent="search" class="flex items-center">
@@ -132,7 +133,7 @@
                     aria-label="Table navigation">
                     <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
                         Showing
-                        <span class="font-semibold text-gray-900 dark:text-white">1-{{ pageSize }}</span>
+                        <span class="font-semibold text-gray-900 dark:text-white">1-{{ evidences.length > 7 ? pageSize : evidences.length }}</span>
                         of
                         <span class="font-semibold text-gray-900 dark:text-white">{{ evidences.length }}</span>
                     </span>
@@ -191,7 +192,6 @@ export default {
     },
     methods: {
         async handleDeleteEvidence(id) {
-            // console.log(this.fileName)
             let apiURL = `http://localhost:3000/evidences/delete/${id}`;
             let indexOfArrayItem = this.evidences.findIndex((i) => i._id === id);
             let fileName = this.evidences[indexOfArrayItem].photoName
